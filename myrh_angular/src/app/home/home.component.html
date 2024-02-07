@@ -1,0 +1,34 @@
+<ng-container *ngIf="isLogged; else notLogged">
+  <!-- Admin -->
+  <ng-container *ngIf="admin">
+    <app-admin-layout>
+      <offers admin-content></offers>
+      <search-bar search-Bar></search-bar>
+    </app-admin-layout>
+  </ng-container>
+
+  <!-- Company -->
+  <ng-container *ngIf="company">
+    <app-company-layout>
+      <offers content></offers>
+      <search-bar search-Bar></search-bar>
+    </app-company-layout>
+  </ng-container>
+
+  <!-- Applicant -->
+  <ng-container *ngIf="applicant">
+    <app-applicant-layout>
+      <offers content></offers>
+      <search-bar search-Bar></search-bar>
+    </app-applicant-layout>
+  </ng-container>
+
+  <!--  -->
+</ng-container>
+
+<ng-template #notLogged>
+  <app-layout>
+    <offers content></offers>
+    <search-bar search-bar></search-bar>
+  </app-layout>
+</ng-template>

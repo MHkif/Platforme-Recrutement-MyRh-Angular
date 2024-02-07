@@ -1,0 +1,20 @@
+<section class="max-h-screen bg-gray-50 overflow-hidden">
+    <!-- Side Bar -->
+    <app-applican-side-bar />
+    <!-- End Side Bar -->
+  
+    <!-- Content -->
+    <main class="w-[calc(100%-3.5rem)] ml-auto max-h-screen flex flex-col">
+      <app-job-seeker-navbar></app-job-seeker-navbar>
+
+      <div class="px-8 py-6 w-full flex flex-row min-h-screen gap-8">
+        <section class="hideScroll w-full overflow-y-auto pb-20">
+          <ng-content select="[content]"></ng-content>
+        </section>
+  
+        <ng-content select="[search-bar]"></ng-content>
+      </div>
+    </main>
+    <!-- End Content -->
+  </section>
+  

@@ -1,0 +1,126 @@
+<section class="hidden w-[22rem] lg:flex flex-col gap-4">
+  <div *ngIf="isCompany">
+    <a
+      routerLink="new"
+      class="group relative flex w-full justify-center rounded-md bg-purple-700 px-3 py-2.5 text-md font-semibold text-white hover:text-purple-600 hover:bg-white border border-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+    >
+      Publiez votre announce
+    </a>
+  </div>
+  <form [formGroup]="searchForm">
+    <div class="p-6 bg-gray-100 rounded-md hover:shadow-lg">
+      <div class="">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-6">
+          <div class="col-span-full">
+            <label
+              for="mot_cle"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Mot cle</label
+            >
+            <div class="mt-2">
+              <input
+                type="text"
+                name="mot_cle"
+                id="mot_cle"
+                (change)="onSearch()"
+                formControlName="mot_cle"
+                autocomplete="mot_cle"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <label
+              for="city"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Ville</label
+            >
+            <div class="mt-2">
+              <select
+                id="city"
+                name="city"
+                formControlName="city"
+                (change)="onSearch()"
+                autocomplete="city"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option selected>Toutes les villes</option>
+                <option>Canada</option>
+                <option>Mexico</option>
+              </select>
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <label
+              for="level"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Niveau d'études</label
+            >
+            <div class="mt-2">
+              <select
+                id="level"
+                name="level"
+                formControlName="level"
+                (change)="onSearch()"
+                autocomplete="level"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option>None</option>
+                <option>Bac</option>
+                <option>Bac +2</option>
+              </select>
+            </div>
+          </div>
+          <div class="sm:col-span-full">
+            <label
+              for="activity"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Domaine</label
+            >
+            <div class="mt-2">
+              <select
+                id="activity"
+                name="activity"
+                formControlName="activity"
+                (change)="onSearch()"
+                autocomplete="activity"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option>Choisir Domaine</option>
+              </select>
+            </div>
+          </div>
+          <div class="sm:col-span-full">
+            <label
+              for="job"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Fonction</label
+            >
+            <div class="mt-2">
+              <select
+                id="job"
+                name="job"
+                formControlName="job"
+                (change)="onSearch()"
+                autocomplete="job"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option>Choisir Fontion</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="mt-6 flex items-center justify-end gap-x-6">
+
+        <button
+          type="submit"
+          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Save
+        </button>
+      </div> -->
+  </form>
+</section>

@@ -1,0 +1,12 @@
+<ng-container *ngIf="isLogged; else notLogged">
+  <app-company-layout>
+    <div content class="hideScroll">
+      <router-outlet></router-outlet>
+    </div>
+
+  </app-company-layout>
+</ng-container>
+
+<ng-template #notLogged>
+  <div>Company Not Logged</div>
+</ng-template>

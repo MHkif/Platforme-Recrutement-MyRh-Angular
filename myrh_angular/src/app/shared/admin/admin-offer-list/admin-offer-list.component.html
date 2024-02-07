@@ -1,0 +1,164 @@
+<div *ngIf="!offers" class="">
+  <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center">
+      <div
+        class="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-red-100"
+      >
+        <svg
+          class="w-10 h-10 text-red-500"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 7a1 1 0 112 0v4a1 1 0 11-2 0V7zm1 10a1 1 0 100-2 1 1 0 000 2z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </div>
+      <h2 class="text-2xl font-medium text-gray-900 dark:text-white">
+        No offers found
+      </h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Try adjusting your search or filter to find what you're looking for.
+      </p>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="offers | async as offersList; else failureOrLoading">
+  <div *ngIf="offersList" class="relative overflow-x-auto">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">title</th>
+          <th scope="col" class="px-6 py-3">salary</th>
+          <th scope="col" class="px-6 py-3">location</th>
+          <th scope="col" class="px-6 py-3">status</th>
+          <th scope="col" class="px-6 py-3">company</th>
+          <th scope="col" class="px-6 py-3">Visibility</th>
+          <th scope="col" class="px-6 py-3">actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let offer of offersList.content"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+        >
+          <th
+            class="px-6 py-4 font-medium text-gray-900 whitespace-normal dark:text-white"
+          >
+            {{ offer.title }}
+          </th>
+          <td class="px-6 py-4">
+            {{ offer.salary }}
+          </td>
+          <td class="px-6 py-4">
+            {{ offer.city.name }}
+          </td>
+          <td class="px-6 py-4">
+            {{ offer.status }}
+          </td>
+          <td class="px-6 py-4">
+            {{ offer.company.name }}
+          </td>
+          <td class="px-6 py-4">
+            <select
+              (change)="changeVisibility(offer.id, $event)"
+              class="block px-3 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white dark:border-gray-700"
+            >
+              <option
+                *ngFor="let visbility of OfferStatus | keyvalue"
+                [selected]="offer.status === visbility.key"
+                [value]="visbility.key"
+              >
+                {{ visbility.value }}
+              </option>
+            </select>
+          </td>
+
+          <td class="px-6 py-4 text-sm">
+            <a
+              [routerLink]="['/offers', offer.id]"
+              class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-600"
+            >
+              View
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-container *ngIf="offersList.totalPages">
+    <ul class="py-3 flex justify-center text-xs font-medium space-x-1">
+      <li *ngIf="!offersList.first">
+        <a
+          (click)="navigateToAdminCompetitions(currentPage - 1)"
+          class="inline-flex items-center justify-center w-8 h-8 border border-gray-100 rounded cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-3 h-3"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </li>
+
+      <li *ngFor="let page of getTotalPagesArray(offersList); let i = index">
+        <a
+          [ngClass]="{
+            'bg-purple-600 border border-purple-600 text-white ':
+              page == currentPage
+          }"
+          class="block w-8 h-8 text-center border border-gray-100 rounded leading-8 cursor-pointer"
+          (click)="navigateToAdminCompetitions(this.page)"
+        >
+          {{ page }}
+        </a>
+      </li>
+
+      <li *ngIf="!offersList.last">
+        <a
+          (click)="
+            navigateToAdminCompetitions(offersList.pageable.pageNumber + 2)
+          "
+          class="inline-flex items-center justify-center w-8 h-8 border border-gray-100 rounded cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-3 h-3"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </ng-container>
+</ng-container>
+<ng-template
+  #failureOrLoading
+  class="text-md font-semibold leading-relaxed text-red-600 md:text-xl"
+>
+  <ng-container *ngIf="errorMsg">
+    <div class="text-md font-semibold leading-relaxed text-red-600 md:text-lg">
+      {{ errorMsg }}
+    </div>
+  </ng-container></ng-template
+>

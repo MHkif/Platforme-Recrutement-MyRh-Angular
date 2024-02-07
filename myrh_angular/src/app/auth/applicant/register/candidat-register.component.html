@@ -1,0 +1,178 @@
+<auth-layout>
+  <div
+    auth-content
+    class="z-20 w-full flex flex-col h-screen space-y-8 py-4 px-8 md:w-[65%]"
+  >
+    <div class="flex items-center justify-end gap-4 w-full">
+      <a
+        routerLink="/applicant/auth/login"
+        class="block text-md text-purple-600"
+      >
+        Already have an account , <span class="font-medium">Sign in</span> now !
+      </a>
+    </div>
+
+    <div class="flex flex-col items-center justify-center h-full space-y-8">
+      <div class="text-purple-600 font-medium text-lg">
+        Register As Applicant
+      </div>
+
+      <form
+        class="space-y-10 w-1/2"
+        [formGroup]="signUpForm"
+        (ngSubmit)="onSubmit()"
+        id="form"
+      >
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-4 md:flex-row">
+            <div class="space-y-2 w-full">
+              <label for="first_name" class="pl-1 font-medium"
+                >First name</label
+              >
+              <input
+                id="first_name"
+                name="first_name"
+                type="text"
+                autocomplete="first_name"
+                formControlName="first_name"
+                [ngClass]="{
+                  'border border-red-600 ring-red-600 focus:ring-red-600 focus:border-red-400 ':
+                    first_name_Error,
+                  'border border-purple-600  focus:ring-purple-600 focus:border-purple-400':
+                    !first_name_Error && signUpForm.get('first_name')?.touched
+                }"
+                class="relative block w-full rounded-md border p-2.5 text-gray-900 ring-1 ring-outset ring-purple-600 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+                placeholder="First name"
+              />
+
+              <p
+                *ngIf="first_name_Error"
+                id="first_name_Error"
+                class="mt-1 text-xs text-red-500"
+              >
+                {{ first_name_Error }}
+              </p>
+            </div>
+            <div class="space-y-2 w-full">
+              <label for="last_name" class="pl-1 font-medium">Last name</label>
+              <input
+                id="last_name"
+                name="last_name"
+                type="text"
+                autocomplete="last_name"
+                formControlName="last_name"
+                [ngClass]="{
+                  'border border-red-600 ring-red-600 focus:ring-red-600 focus:border-red-400 ':
+                    last_name_Error,
+                  'border border-purple-600  focus:ring-purple-600 focus:border-purple-400':
+                    !last_name_Error && signUpForm.get('last_name')?.touched
+                }"
+                class="relative block w-full rounded-md border p-2.5 text-gray-900 ring-1 ring-outset ring-purple-600 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+                placeholder="Last name"
+              />
+
+              <p
+                *ngIf="last_name_Error"
+                id="last_name_Error"
+                class="mt-1 text-xs text-red-500"
+              >
+                {{ last_name_Error }}
+              </p>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label for="email-address" class="pl-1 font-medium">Email</label>
+            <input
+              id="email-address"
+              name="email"
+              type="email"
+              formControlName="email"
+              autocomplete="email"
+              [ngClass]="{
+                'border border-red-600 ring-red-600 focus:ring-red-600 focus:border-red-400 ':
+                  email_Error,
+                'border border-purple-600  focus:ring-purple-600 focus:border-purple-400':
+                  !email_Error && signUpForm.get('email')?.touched
+              }"
+              class="relative block w-full rounded-md border p-2.5 text-gray-900 ring-1 ring-outset ring-purple-600 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+              placeholder="Enter Your Email"
+            />
+            <p
+              *ngIf="email_Error"
+              id="email_Error"
+              class="mt-1 text-xs text-red-500"
+            >
+              {{ email_Error }}
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-4 lg:flex-row">
+            <div class="space-y-2">
+              <label for="password" class="pl-1 font-medium">Password</label>
+              <input
+                id="password"
+                name="password"
+                formControlName="password"
+                type="password"
+                autocomplete="current-password"
+                [ngClass]="{
+                  'border border-red-600 ring-red-600 focus:ring-red-600 focus:border-red-400 ':
+                    password_Error,
+                  'border border-purple-600  focus:ring-purple-600 focus:border-purple-400':
+                    !password_Error && signUpForm.get('password')?.touched
+                }"
+                class="relative block w-full rounded-md border p-2.5 text-gray-900 ring-1 ring-outset ring-purple-600 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-orange-600 foucus:border-purple-400 sm:text-sm sm:leading-6"
+                placeholder="Password"
+              />
+              <p
+                *ngIf="password_Error"
+                id="password_Error"
+                class="mt-1 text-xs text-red-500"
+              >
+                {{ password_Error }}
+              </p>
+            </div>
+            <div class="space-y-2">
+              <label for="password" class="pl-1 font-medium"
+                >Confirm password</label
+              >
+
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                formControlName="confirmPassword"
+                type="password"
+                autocomplete="current-password"
+                [ngClass]="{
+                  'border border-red-600 ring-red-600 focus:ring-red-600 focus:border-red-400 ':
+                    confirm_pass_Error,
+                  'border border-purple-600  focus:ring-purple-600 focus:border-purple-400':
+                    !confirm_pass_Error &&
+                    signUpForm.get('confirmPassword')?.touched
+                }"
+                class="relative block w-full rounded-md p-2.5 text-gray-900 ring-1 ring-outset ring-purple-600 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                placeholder="Confirm Password"
+              />
+              <p
+                *ngIf="confirm_pass_Error"
+                id="confirmPassword"
+                class="mt-1 text-xs text-red-500"
+              >
+                {{ confirm_pass_Error }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            class="group relative flex w-full justify-center rounded-md bg-purple-700 px-3 py-2.5 text-md font-semibold text-white hover:text-purple-600 hover:bg-white hover:border hover:border-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+          >
+            Sign up
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</auth-layout>
