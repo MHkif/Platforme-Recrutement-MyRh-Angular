@@ -1,3 +1,6 @@
+import { AreaActivity } from "./areaActivity.model";
+import { Profile } from "./profile.model";
+
 export interface JobSeeker {
   id: number;
   first_name: string;
@@ -6,6 +9,7 @@ export interface JobSeeker {
   password: string;
   image: string | null;
   enabled: boolean;
+  profile:Profile;
 }
 
 export interface PageJobSeeker {

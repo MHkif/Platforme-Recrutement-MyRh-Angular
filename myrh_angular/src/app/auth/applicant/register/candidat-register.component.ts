@@ -4,6 +4,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/state/app.state';
 import { JobSeeker } from '../../../model/jobSeeker.model';
 import { applicantStartRegister } from '../../../store/applicant/applicant.action';
+import { AreaActivityService } from '../../../service/area-activity.service';
+import { ProfileService } from '../../../service/profile.service';
+import { AreaActivity } from '../../../model/areaActivity.model';
+import { Profile } from '../../../model/profile.model';
+// import { AreaActivityService } from '../../../service/AreaActivityService.ts';
 
 @Component({
   selector: 'app-candidat-register',
@@ -11,7 +16,7 @@ import { applicantStartRegister } from '../../../store/applicant/applicant.actio
   styleUrls: ['./candidat-register.component.css'],
 })
 export class CandidatRegisterComponent {
-  constructor(private builder: FormBuilder, private store: Store<AppState>) {}
+  constructor(private profileService :ProfileService,private areaservice:AreaActivityService ,private builder: FormBuilder, private store: Store<AppState>) {}
 
   signUpForm!: FormGroup;
   first_name_Error: any;
@@ -19,6 +24,11 @@ export class CandidatRegisterComponent {
   email_Error: any;
   password_Error: any;
   confirm_pass_Error: any;
+  profile_Error:any;
+  areaActivity_Error:any;
+
+  areaActivity:AreaActivity[]=[]
+  profiles:Profile[]=[]
 
   ngOnInit(): void {
     this.signUpForm = this.builder.group({
@@ -50,6 +60,18 @@ export class CandidatRegisterComponent {
           Validators.maxLength(20),
         ])
       ),
+      areaActivity: this.builder.control(
+        '',
+        Validators.compose([
+          Validators.required,
+        ])
+      ),
+      profile: this.builder.control(
+        '',
+        Validators.compose([
+          Validators.required,
+        ])
+      ),
       confirmPassword: this.builder.control(
         '',
         Validators.compose([
@@ -59,8 +81,23 @@ export class CandidatRegisterComponent {
         ])
       ),
     });
+    this.loadAreaActivity();
+  }
+  loadAreaActivity(){
+    this.areaservice.louadAreaActivity().subscribe(data => {
+      this.areaActivity=data.content;
+    });
   }
 
+  louadProfiles(){
+    this.profileService.loadProfile(this.signUpForm.value.areaActivity).subscribe(data=>{
+      this.profiles=data
+      console.log("profiles :"+data.forEach.toString())
+
+    })
+  }
+
+  
   onSubmit() {
     if (this.signUpForm.valid) {
       let jobSeeker: JobSeeker = {
@@ -69,27 +106,42 @@ export class CandidatRegisterComponent {
         last_name: this.signUpForm.value.last_name,
         email: this.signUpForm.value.email,
         password: this.signUpForm.value.password,
+        profile:this.signUpForm.value.profile,
         image: null,
         enabled: true,
       };
-
-      if (this.signUpForm.value.confirmPassword === jobSeeker.password) {
+      if (this.signUpForm.value.confirmPassword ===  jobSeeker.password) {
+        console.log("form "+this.signUpForm.value)
         this.store.dispatch(applicantStartRegister({ jobSeeker: jobSeeker }));
       } else {
         this.confirm_pass_Error = 'Mismatch Password';
       }
-    } else {
+    }
+  
+      console.log('hego else')
       if (this.signUpForm?.get('first_name')?.hasError('required')) {
         this.first_name_Error = 'First name is required.';
-      } else if (this.signUpForm?.get('first_name')?.hasError('minlength')) {
-        this.first_name_Error =
-          'First name must be at least 8 characters long.';
+      }
+       else if (this.signUpForm?.get('first_name')?.hasError('minlength')) {
+        this.first_name_Error = 'First name must be at least 8 characters long.';
       } else if (this.signUpForm?.get('first_name')?.hasError('maxlength')) {
         this.first_name_Error =
           'First name must be less than 30 characters long.';
       } else {
-        this.first_name_Error = '';
+        this.first_name_Error ='';
       }
+
+      if (this.signUpForm?.get('profile')?.hasError('required')) {
+        this.profile_Error = 'profile is required.';
+      }else{
+        this.profile_Error='';
+      }
+      if (this.signUpForm?.get('areaActivity')?.hasError('required')) {
+        this.areaActivity_Error = 'areaActivity is required.';
+      }else{
+        this.areaActivity_Error='';
+      }
+
 
       if (this.signUpForm?.get('last_name')?.hasError('required')) {
         this.last_name_Error = 'Last name is required.';
@@ -114,7 +166,7 @@ export class CandidatRegisterComponent {
         this.password_Error = 'Password is required.';
       } else if (this.signUpForm?.get('password')?.hasError('minlength')) {
         this.password_Error = 'Password must be at least 8 characters long.';
-      } else if (this.signUpForm?.get('name')?.hasError('maxlength')) {
+      } else if (this.signUpForm?.get('password')?.hasError('maxlength')) {
         this.password_Error = 'Password must be less than 30 characters long.';
       } else {
         this.password_Error = '';
@@ -133,13 +185,16 @@ export class CandidatRegisterComponent {
         this.confirm_pass_Error =
           'Confirm Password must be less than 30 characters long.';
       } else if (
-        this.signUpForm.value.confirm_pass_Error !=
+        this.signUpForm.value.confirmPassword !=
         this.signUpForm.value.password
       ) {
         this.confirm_pass_Error = 'Mismatch password.';
       } else {
-        this.confirm_pass_Error = '';
+        this.confirm_pass_Error ='';
       }
+      
     }
   }
-}
+  
+
+
