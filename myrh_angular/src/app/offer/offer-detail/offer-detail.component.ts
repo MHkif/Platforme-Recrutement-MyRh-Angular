@@ -11,6 +11,7 @@ import { Offer } from '../../model/offer.model';
 import { OfferService } from '../../service/offer.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state/app.state';
+import { JobSeeker } from '../../model/jobSeeker.model';
 
 @Component({
   selector: 'app-offer-detail',
@@ -27,6 +28,7 @@ export class OfferDetailComponent implements OnInit {
   first_name_Error: string = '';
   last_name_Error: string = '';
   email_Error: string = '';
+  jobSeeker!:JobSeeker|null;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +38,11 @@ export class OfferDetailComponent implements OnInit {
     private _store: Store<AppState>
   ) {}
   ngOnInit(): void {
+
+    this._store.select('applicantAuth').subscribe((state) => {
+      this.jobSeeker = state.applicant;
+    });
+
     this._store.select('adminAuth').subscribe((state) => {
       this.isAdmin = state.isLogged;
     });
@@ -94,6 +101,7 @@ export class OfferDetailComponent implements OnInit {
         password: '',
         enabled: false,
         image: '',
+        profile:this.jobApplicantForm.value.profile,
       },
 
       resume: this.jobApplicantForm.value.resume,
