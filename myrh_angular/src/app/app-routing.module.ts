@@ -25,9 +25,12 @@ import { AuthAdminGuard } from './core/guards/admin/auth-admin.guard';
 import { AuthCompanyGuard } from './core/guards/company/auth-company-guard.guard';
 import { ApplicantLayoutComponent } from './features/candidat/applicant-layout/applicant-layout.component';
 import { AuthApplicantGuard } from './core/guards/applicant/auth-applicant-guard.guard';
+import { QuizComponent } from './features/quiz/quiz.component';
 
 const routes: Routes = [
   // default web layout  Applicant :
+  { path: '', component: QuizComponent },
+
   {
     path: 'applicant',
 
