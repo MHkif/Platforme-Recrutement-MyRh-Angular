@@ -18,3 +18,9 @@ export interface PageProfile {
     numberOfElements: boolean;
     empty: boolean;
   }
+
+  export interface ActivityArea {
+    id: number;
+    description: string;
+  }
+

@@ -55,6 +55,7 @@ import { ApplicanSideBarComponent } from './features/candidat/applican-side-bar/
 import { MyApplicantsComponent } from './features/candidat/my-applicants/my-applicants.component';
 import { AuthAdminGuard } from './core/guards/admin/auth-admin.guard';
 import { AuthCompanyGuard } from './core/guards/company/auth-company-guard.guard';
+import { QuizComponent } from './features/quiz/quiz.component';
 
 const MODULES = [
   CommonModule,
@@ -128,6 +129,7 @@ const ADMIN_COMPONENT = [
     ...APPLICANT_COMPONENT,
     ...LAYOUTS,
     ...OFFER_COMPONENT,
+    QuizComponent,
   ],
   imports: [...MODULES],
   providers: [
