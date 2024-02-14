@@ -66,14 +66,15 @@ export class QuizComponent implements OnInit {
   }
 
   selectOption(option: any) {
-    if (option.isCorrect) {
+    alert('Option : ' + JSON.stringify(option));
+    if (option.rightAnswer) {
       this.correctAnswerCount++;
     }
     option.isSelected = true;
   }
   isOptionSelected(options: any) {
     const selectionCount = options.filter(
-      (m: any) => m.isSelected == true
+      (m: any) => m.rightAnswer == true
     ).length;
     if (selectionCount == 0) {
       return false;

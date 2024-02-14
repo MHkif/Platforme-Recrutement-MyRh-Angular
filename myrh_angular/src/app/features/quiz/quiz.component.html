@@ -1,71 +1,95 @@
 <div class="start_btn">
-  <button class="text-sm text-purple-600" (click)="showWarningPopup()">
-    Strat Quiz
-  </button>
+  <button (click)="showWarningPopup()">Start Quiz</button>
 </div>
+
 <div class="info_box" [ngClass]="showWarning ? 'activeInfo' : ''">
-  <div class="info_title">
-    <span>Some rules about the quiz</span>
-    <div class="info-list">
-      <div class="info">
-        1. You will have only 15 seconds per each question.
-      </div>
-      <div class="info">
-        2. Once you select your answer, it can't be undone.
-      </div>
-      <div class="info">3. You can't select any option once time goes off.</div>
-      <div class="info">4. You can't exit from the Quiz Once started.</div>
+  <div class="info-title"><span>Some Rules of this Quiz</span></div>
+  <div class="info-list">
+    <div class="info">
+      1. You will have only <span>15 seconds</span> per each question.
     </div>
-    <div class="buttons">
-      <button class="quit">Exit Quiz</button>
-      <button class="restart" (click)="startQuiz()">Continue</button>
-    </div>
+    <div class="info">2. Once you select your answer, it can't be undone.</div>
+    <div class="info">3. You can't select any option once time goes off.</div>
+    <div class="info">4. You can't exit from the Quiz Once Started.</div>
+  </div>
+  <div class="buttons">
+    <button class="quit">Exit Quiz</button>
+    <button class="restart" (click)="startQuiz()">Continue</button>
   </div>
 </div>
+
 <div class="quiz_box" [ngClass]="isQuizStarted ? 'activeQuiz' : ''">
   <header>
-    <div class="title">Java Quiz</div>
+    <div class="title">Awesome Quiz Application</div>
     <div class="timer">
       <div class="time_left_txt">Time Off</div>
-      <div class="time_sec">{{remainingTime}}</div>
+      <div class="timer_sec">{{ remainingTime }}</div>
     </div>
     <div class="time_line" style="width: 550px"></div>
   </header>
   <section *ngIf="isQuizStarted">
     <div class="que_text">
       <span
-        >{{ currentQuestionNo }}.
-        {{ questionsList[currentQuestionNo - 1].question }}</span
-      >
+        >{{ currentQuestionNo + 1 }}.
+        {{ questionsList[currentQuestionNo].question }}
+      </span>
     </div>
     <div class="option_list">
       <div
-        *ngFor="let option of questionsList[currentQuestionNo - 1].answers"
-        class="option disabled"
-        [ngClass]="option.rightAnswer ? 'correct' : ''"
-
-        onclick="optionSelected(this)"
+        class="option"
+        [ngClass]="{
+          correct: option.rightAnswer,
+          incorrect: !option.rightAnswer
+        }"
+        (click)="selectOption(option)"
+        *ngFor="let option of questionsList[currentQuestionNo].answers"
       >
-        <span>{{ option.answer }} bool : {{ option.rightAnswer }}</span>
-        <div
-          [ngClass]="option.rightAnswer ? 'icon tick' : ''"
-        >
-          <i class="fas fa-check" aria-hidden="true"></i>
-        </div>
+        <span>{{ option.answer }}</span>
       </div>
     </div>
   </section>
+
   <footer>
     <div class="total_que">
       <span>
-        <p>{{ currentQuestionNo }}</p>
+        <p>{{ currentQuestionNo + 1 }}</p>
         of
         <p>{{ questionsList.length }}</p>
         Questions
       </span>
     </div>
-    <button class="next_btn show">Next</button>
+    <button
+      *ngIf="currentQuestionNo + 1 == questionsList.length"
+      class="next_btn show"
+      (click)="finish()"
+    >
+      Finish
+    </button>
+    <button
+      *ngIf="currentQuestionNo + 1 !== questionsList.length"
+      class="next_btn show"
+      (click)="nextQuestion()"
+    >
+      Next Que
+    </button>
   </footer>
 </div>
 
-<div class="result_box"></div>
+<div class="result_box" [ngClass]="isQuizEnded ? 'activeResult' : ''">
+  <div class="icon">
+    <i class="fas fa-crown"></i>
+  </div>
+  <div class="complete_text">You've completed the Quiz!</div>
+  <div class="score_text">
+    <span
+      >and congrats! 🎉, You got
+      <p>{{ correctAnswerCount }}</p>
+      out of
+      <p>{{ questionsList.length }}</p></span
+    >'
+  </div>
+  <div class="buttons">
+    <button class="restart">Replay Quiz</button>
+    <button class="quit" (click)="start()">Quit Quiz</button>
+  </div>
+</div>
