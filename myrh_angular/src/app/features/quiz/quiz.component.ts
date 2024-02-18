@@ -16,7 +16,7 @@ export class QuizComponent implements OnInit {
   isQuizStarted: boolean = false;
   isQuizEnded: boolean = false;
   questionsList: Question[] = [];
-  currentQuestionNo: number = 1;
+  currentQuestionNo: number = 0;
 
   remainingTime: number = 5;
 
@@ -44,6 +44,7 @@ export class QuizComponent implements OnInit {
   nextQuestion() {
     if (this.currentQuestionNo < this.questionsList.length) {
       this.currentQuestionNo++;
+      this.remainingTime = 5;
     } else {
       this.subscription.forEach((element) => {
         element.unsubscribe();
@@ -87,7 +88,6 @@ export class QuizComponent implements OnInit {
     this.isQuizStarted = true;
     this.subscription.push(
       this.timer.subscribe((res) => {
-        console.log(res);
         if (this.remainingTime != 0) {
           this.remainingTime--;
         }

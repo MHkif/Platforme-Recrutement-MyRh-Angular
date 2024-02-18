@@ -33,7 +33,7 @@ export class JobSeekerService {
   }
 
   public auth(email: string, password: string): Observable<ResponseHttp> {
-    return this.http.post<ResponseHttp>(this.base_url + '/auth', {
+    return this.http.post<ResponseHttp>(this.base_url + '/auth/login', {
       email,
       password,
     });
@@ -49,6 +49,8 @@ export class JobSeekerService {
       password: jobSeekerRes.password,
       image: jobSeekerRes.image,
       enabled: jobSeekerRes.enabled,
+      profile_verify: jobSeekerRes.profile_verify,
+      profile: jobSeekerRes.profile,
     };
     return jobSeeker;
   }

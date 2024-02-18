@@ -37,10 +37,7 @@
     <div class="option_list">
       <div
         class="option"
-        [ngClass]="{
-          correct: option.rightAnswer,
-          incorrect: !option.rightAnswer
-        }"
+  
         (click)="selectOption(option)"
         *ngFor="let option of questionsList[currentQuestionNo].answers"
       >
