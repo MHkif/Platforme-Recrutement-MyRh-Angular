@@ -50,8 +50,8 @@ export class JobSeekerService {
       password: jobSeekerRes.password,
       image: jobSeekerRes.image,
       enabled: jobSeekerRes.enabled,
-      profile:jobSeekerRes.profile,
-      
+      profile_verify: jobSeekerRes.profile_verify,
+      profile: jobSeekerRes.profile,
     };
     return jobSeeker;
   }

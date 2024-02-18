@@ -28,8 +28,7 @@ import { AuthApplicantGuard } from './core/guards/applicant/auth-applicant-guard
 import { QuizComponent } from './features/quiz/quiz.component';
 
 const routes: Routes = [
-  // default web layout  Applicant :
-  { path: '', component: QuizComponent },
+
 
   {
     path: 'applicant',
@@ -48,6 +47,7 @@ const routes: Routes = [
           },
         ],
       },
+      { path: 'profile-test/:profile', component: QuizComponent },
 
       {
         path: 'dashboard',

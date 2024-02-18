@@ -16,7 +16,7 @@ export class QuizComponent implements OnInit {
   isQuizStarted: boolean = false;
   isQuizEnded: boolean = false;
   questionsList: Question[] = [];
-  currentQuestionNo: number = 1;
+  currentQuestionNo: number = 0;
 
   remainingTime: number = 5;
 
@@ -44,6 +44,7 @@ export class QuizComponent implements OnInit {
   nextQuestion() {
     if (this.currentQuestionNo < this.questionsList.length) {
       this.currentQuestionNo++;
+      this.remainingTime = 5;
     } else {
       this.subscription.forEach((element) => {
         element.unsubscribe();
@@ -66,14 +67,15 @@ export class QuizComponent implements OnInit {
   }
 
   selectOption(option: any) {
-    if (option.isCorrect) {
+    alert('Option : ' + JSON.stringify(option));
+    if (option.rightAnswer) {
       this.correctAnswerCount++;
     }
     option.isSelected = true;
   }
   isOptionSelected(options: any) {
     const selectionCount = options.filter(
-      (m: any) => m.isSelected == true
+      (m: any) => m.rightAnswer == true
     ).length;
     if (selectionCount == 0) {
       return false;
@@ -86,7 +88,6 @@ export class QuizComponent implements OnInit {
     this.isQuizStarted = true;
     this.subscription.push(
       this.timer.subscribe((res) => {
-        console.log(res);
         if (this.remainingTime != 0) {
           this.remainingTime--;
         }
