@@ -14,7 +14,7 @@ export class JobSeekerService {
 
   constructor(private http: HttpClient) {}
 
-  public getAll(page: number, size: number): Observable<PageJobSeeker> {
+  public getAll(page: number, size: number): Observable<PageJobSeeker>{
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
@@ -22,14 +22,15 @@ export class JobSeekerService {
     return this.http.get<PageJobSeeker>(this.base_url, {
       params,
     });
+    
   }
 
   public getOne(id: string): Observable<JobSeeker> {
     return this.http.get<JobSeeker>(this.base_url + '/' + id);
   }
 
-  public save(company: JobSeeker) {
-    return this.http.post<JobSeeker>(this.base_url, company);
+  public save(applicant: JobSeeker) {
+    return this.http.post<JobSeeker>(this.base_url+'/auth/register',applicant);
   }
 
   public auth(email: string, password: string): Observable<ResponseHttp> {
@@ -37,7 +38,7 @@ export class JobSeekerService {
       email,
       password,
     });
-  }
+  } 
 
   jobSeekerMapper(res: ResponseHttp) {
     let jobSeekerRes = res.data.response;

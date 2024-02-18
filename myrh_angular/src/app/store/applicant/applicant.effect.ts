@@ -21,7 +21,7 @@ export class ApplicantEffect {
   ) {}
 
   login$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions$.pipe( 
       ofType(applicantStartLogin),
       exhaustMap((action) => {
         return this.jobSeekerService.auth(action.email, action.password).pipe(

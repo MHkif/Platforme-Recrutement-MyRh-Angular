@@ -106,6 +106,62 @@
             </p>
           </div>
 
+          <div class="space-y-2">
+            <label for="your profile" class="pl-1 font-medium"
+              >areaActivity</label
+            >
+            <select
+              (change)="louadProfiles()"
+              formControlName="areaActivity"
+              [ngClass]="{
+                'border border-red-600 ring-red-600 focus:ring-red-600 focus:border-red-400 ':
+                  areaActivity_Error,
+                'border border-purple-600  focus:ring-purple-600 focus:border-purple-400':
+                  !areaActivity_Error && signUpForm.get('areaActivity')?.touched
+              }"
+              class="relative block w-full rounded-md border p-2.5 text-gray-900 ring-1 ring-outset ring-purple-600 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-orange-600 foucus:border-purple-400 sm:text-sm sm:leading-6"
+            >
+              <option
+                *ngFor="let activity of areaActivity"
+                [value]="activity.id"
+              >
+                {{ activity.description }}
+              </option>
+            </select>
+            <p
+              *ngIf="areaActivity_Error"
+              id="areaActivity_Error"
+              class="mt-1 text-xs text-red-500"
+            >
+              {{ areaActivity_Error }}
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <label for="your profile" class="pl-1 font-medium">profile</label>
+            <select
+              formControlName="profile"
+              [ngClass]="{
+                'border border-red-600 ring-red-600 focus:ring-red-600 focus:border-red-400 ':
+                  profile_Error,
+                'border border-purple-600  focus:ring-purple-600 focus:border-purple-400':
+                  !profile_Error && signUpForm.get('profile')?.touched
+              }"
+              class="relative block w-full rounded-md border p-2.5 text-gray-900 ring-1 ring-outset ring-purple-600 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-orange-600 foucus:border-purple-400 sm:text-sm sm:leading-6"
+            >
+              <option *ngFor="let profile of profiles" [value]="profile.id">
+                {{profile.name }}
+              </option>
+            </select>
+            <p
+              *ngIf="profile_Error"
+              id="profile_Error"
+              class="mt-1 text-xs text-red-500"
+            >
+              {{ profile_Error }}
+            </p>
+          </div>
+
           <div class="flex flex-col gap-4 lg:flex-row">
             <div class="space-y-2">
               <label for="password" class="pl-1 font-medium">Password</label>

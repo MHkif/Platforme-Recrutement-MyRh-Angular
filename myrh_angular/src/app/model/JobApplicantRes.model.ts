@@ -1,3 +1,5 @@
+import { JobSeeker } from "./jobSeeker.model"
+
 export interface JobApplicantRes{
   id: Id
   createdDate: string
@@ -13,23 +15,12 @@ export interface Id {
   jobSeeker_id: number
 }
 
-export interface JobSeeker {
-  id: number
-  first_name: string
-  last_name: string
-  email: string
-  password: string
-  image: any
-  offers: any[]
-  enabled: boolean
-}
 
 export interface Offer {
   id: number
   title: string
   description: string
   company: Company
-  profile: Profile
   city: City
   level: string
   status: string
@@ -45,10 +36,6 @@ export interface Company {
   enabled: boolean
 }
 
-export interface Profile {
-  id: number
-  description: string
-}
 
 export interface City {
   id: number
