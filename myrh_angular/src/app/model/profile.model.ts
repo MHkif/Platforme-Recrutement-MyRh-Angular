@@ -3,7 +3,7 @@ import { AreaActivity } from "./areaActivity.model";
 export interface Profile{
     id:number;
     name:string;
-    areaActivity:AreaActivity
+    activityArea:AreaActivity
 }
 export interface PageProfile {
     content: Array<Profile>;

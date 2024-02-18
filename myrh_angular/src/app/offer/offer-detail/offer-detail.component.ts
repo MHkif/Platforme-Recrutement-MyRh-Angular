@@ -28,7 +28,7 @@ export class OfferDetailComponent implements OnInit {
   first_name_Error: string = '';
   last_name_Error: string = '';
   email_Error: string = '';
-  jobSeeker!:JobSeeker|null;
+  jobSeeker!: JobSeeker | null;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +38,6 @@ export class OfferDetailComponent implements OnInit {
     private _store: Store<AppState>
   ) {}
   ngOnInit(): void {
-
     this._store.select('applicantAuth').subscribe((state) => {
       this.jobSeeker = state.applicant;
     });
@@ -101,7 +100,8 @@ export class OfferDetailComponent implements OnInit {
         password: '',
         enabled: false,
         image: '',
-        profile:this.jobApplicantForm.value.profile,
+        profile: this.jobApplicantForm.value.profile,
+        profile_verify: false,
       },
 
       resume: this.jobApplicantForm.value.resume,

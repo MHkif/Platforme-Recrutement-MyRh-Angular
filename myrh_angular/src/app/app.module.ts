@@ -56,6 +56,7 @@ import { MyApplicantsComponent } from './features/candidat/my-applicants/my-appl
 import { AuthAdminGuard } from './core/guards/admin/auth-admin.guard';
 import { AuthCompanyGuard } from './core/guards/company/auth-company-guard.guard';
 import { QuizComponent } from './features/quiz/quiz.component';
+import { ProfileComponent } from './features/candidat/profile/profile.component';
 
 const MODULES = [
   CommonModule,
@@ -130,6 +131,7 @@ const ADMIN_COMPONENT = [
     ...LAYOUTS,
     ...OFFER_COMPONENT,
     QuizComponent,
+    ProfileComponent,
   ],
   imports: [...MODULES],
   providers: [

@@ -6,8 +6,8 @@
       <!-- Profile -->
       <li class="marker:text-white min-w-max">
         <a
-          routerLink="/applicant/dashboard"
-          aria-label="/applicant/dashboard"
+          routerLink="/applicant/account"
+          aria-label="/applicant/account"
           class="group relative flex items-center space-x-4 p-1.5 text-purple-50"
         >
           <div class="flex w-full items-center space-x-4">
@@ -29,7 +29,7 @@
       <ul class="mt-5 space-y-1 tracking-wide text-purple-700">
         <li class="min-w-max">
           <a
-            routerLink="//applicant/dashboard/offers"
+            routerLink="/applicant/offers"
             aria-label="home"
             class="group relative flex items-center space-x-4 p-1"
           >
@@ -55,31 +55,67 @@
             >
           </a>
         </li>
+        <!-- notification -->
         <li class="min-w-max">
           <a
-            routerLink="/applicant/dashboard/jobApplicants"
-            aria-label="jobApplicants"
+            routerLink="/applicant/notifications"
+            aria-label="notifications"
             class="group relative flex items-center space-x-4 p-1"
           >
-            <div class="group flex items-center justify-center rounded p-2">
+            <div
+              class="group reletive flex items-center justify-center rounded p-2"
+            >
+              <span
+                *ngIf="notifications.length"
+                class="absolute -top-1 left-6 inline-flex items-center justify-center text-white font-medium rounded-full h-6 w-6 border border-purple-700 bg-purple-400 text-xs"
+              >
+                {{ notifications.length}}</span
+              >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                class="w-6 h-6 text-gray-900 group-hover:fill-purple-700"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                class="w-6 h-6 text-gray-900 group-hover:text-purple-700"
               >
-                <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
                 <path
-                  d="M427.8 380.7l-196.5 97.8a18.6 18.6 0 0 1 -14.7 0L20.2 380.7c-4-2-4-5.3 0-7.3L67.2 350a18.7 18.7 0 0 1 14.7 0l134.8 67a18.5 18.5 0 0 0 14.7 0l134.8-67a18.6 18.6 0 0 1 14.7 0l47.1 23.4c4.1 2 4.1 5.2 0 7.2zm0-136.5l-47.1-23.4a18.6 18.6 0 0 0 -14.7 0l-134.8 67.1a18.7 18.7 0 0 1 -14.7 0L81.9 220.7a18.7 18.7 0 0 0 -14.7 0l-47.1 23.4c-4 2-4 5.3 0 7.3l196.5 97.8a18.6 18.6 0 0 0 14.7 0l196.5-97.8c4.1-2 4.1-5.3 0-7.3zM20.2 130.4l196.5 90.3a20.1 20.1 0 0 0 14.7 0l196.5-90.3c4-1.9 4-4.9 0-6.7L231.3 33.4a19.9 19.9 0 0 0 -14.7 0l-196.5 90.3c-4.1 1.9-4.1 4.9 0 6.7z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                 />
               </svg>
             </div>
             <span
               class="flex items-center text-gray-900 group-hover:text-purple-700 font-medium"
-              >My Applicants</span
+              >Notifications</span
             >
           </a>
         </li>
       </ul>
+      <!-- notification -->
+      <!-- <div class="relative p-1.5 rounded bg-orange-100">
+        <span
+          v-show="notifications.length"
+          class="absolute -top-3 left-7 inline-flex items-center justify-center text-white font-medium rounded-full h-6 w-6 border border-orange-600 bg-gray-900 text-xs"
+        >
+          {{ notifications.length }}</span
+        >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 text-orange-600"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+          />
+        </svg>
+      </div> -->
     </div>
     <li class="marker:text-white min-w-max">
       <a
@@ -91,7 +127,7 @@
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            stroke-width="2"
             stroke="currentColor"
             class="w-6 h-6 text-red-500 group-hover:text-red-600"
           >
@@ -102,7 +138,7 @@
             />
           </svg>
         </div>
-        <span class="text-red-500 group-hover:text-red-600">Log Out</span>
+        <span class="text-red-600 group-hover:text-red-600">Log Out</span>
       </a>
     </li>
   </div>

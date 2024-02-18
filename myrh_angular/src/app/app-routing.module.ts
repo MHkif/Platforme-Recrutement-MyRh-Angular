@@ -26,10 +26,9 @@ import { AuthCompanyGuard } from './core/guards/company/auth-company-guard.guard
 import { ApplicantLayoutComponent } from './features/candidat/applicant-layout/applicant-layout.component';
 import { AuthApplicantGuard } from './core/guards/applicant/auth-applicant-guard.guard';
 import { QuizComponent } from './features/quiz/quiz.component';
+import { ProfileComponent } from './features/candidat/profile/profile.component';
 
 const routes: Routes = [
-
-
   {
     path: 'applicant',
 
@@ -47,16 +46,19 @@ const routes: Routes = [
           },
         ],
       },
-      { path: 'profile-test/:profile', component: QuizComponent },
+      { path: 'profile-badge', component: QuizComponent },
 
       {
-        path: 'dashboard',
+        path: '',
         component: JobSeekerDashboardComponent,
         canActivate: [AuthApplicantGuard],
-
         children: [
-          { path: '', redirectTo: 'jobApplicants', pathMatch: 'full' },
+          { path: '', redirectTo: 'account', pathMatch: 'full' },
 
+          {
+            path: 'account',
+            component: ProfileComponent,
+          },
           {
             path: 'jobApplicants',
             component: MyApplicantsComponent,

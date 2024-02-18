@@ -1,0 +1,30 @@
+<section
+  class="w-full flex flex-col gap-6 md:flex-row items-center md:justify-between"
+>
+  <div class="flex flex-col items-center justify-center gap-6 md:flex-row">
+    <img
+      src="../assets/italo.jpg"
+      alt=""
+      class="h-40 w-40 self-center rounded-full border-2 border-purple-600 object-fit"
+    />
+    <div
+      class="flex flex-col items-center justify-center md:items-start md:mt-8"
+    >
+      <h3 class="text-gray-900 font-bold text-lg">
+        {{ applicant?.first_name }} {{ applicant?.last_name }}
+      </h3>
+      <h3 class="text-gray-400">{{ applicant?.email }}</h3>
+    </div>
+  </div>
+  <div class="w-full flex flex-col gap-6 md:w-[60%]"></div>
+</section>
+<section class="w-full flex flex-col gap-6 mt-8">
+  <div class="text-xl font-semiBold">My Job Applicants</div>
+  <section class="w-full flex flex-col gap-6 md:flex-row">
+    <div
+      class="text-purple-700 font-semiBold w-full p-4 rounded-md bg-purple-100"
+    >
+      You do not have any job applicants yet
+    </div>
+  </section>
+</section>
