@@ -46,7 +46,7 @@ const routes: Routes = [
           },
         ],
       },
-      { path: 'profile-badge', component: QuizComponent },
+      { path: 'profile-verify', component: QuizComponent },
 
       {
         path: '',

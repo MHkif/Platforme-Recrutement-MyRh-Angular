@@ -4,6 +4,9 @@ import { Subscription, interval } from 'rxjs';
 import { QuizService } from '../../service/quiz/quiz.service';
 import { Question } from '../../model/question.model';
 import { ResponseHttp } from '../../model/responseData.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/state/app.state';
+import { JobSeeker } from '../../model/jobSeeker.model';
 
 @Component({
   selector: 'app-quiz',
@@ -17,22 +20,29 @@ export class QuizComponent implements OnInit {
   isQuizEnded: boolean = false;
   questionsList: Question[] = [];
   currentQuestionNo: number = 0;
-
+  applicant!: JobSeeker | null;
   remainingTime: number = 5;
 
   timer = interval(1000);
   subscription: Subscription[] = [];
   correctAnswerCount: number = 0;
   profileId: number = 1;
-  constructor(private service: QuizService) {}
+  constructor(private service: QuizService, private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.loadQuestions();
+    this.store
+      .select('applicantAuth')
+      .subscribe(
+        (state) => (
+          (this.applicant = state.applicant),
+          (this.profileId = this.applicant?.profile.id as number)
+        )
+      );
+    this.loadQuestions(this.profileId);
   }
-  loadQuestions() {
-    this.service.getQuizByProfile(1).subscribe({
+  loadQuestions(profileId: number) {
+    this.service.getQuizByProfile(profileId).subscribe({
       next: (res: ResponseHttp) => {
-        // alert(JSON.stringify(res.data.response));
         this.questionsList = res.data.response;
       },
       error: (err: any) => {

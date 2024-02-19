@@ -1,12 +1,10 @@
-import { createReducer, on } from '@ngrx/store';
-import { initialState } from './applicant.state';
+import { Action, createReducer, on } from '@ngrx/store';
+import { ApplicantAuthState, initialState } from './applicant.state';
 import { applicantLoginSuccess } from './applicant.action';
 
 const _authReducer = createReducer(
   initialState,
   on(applicantLoginSuccess, (state, action) => {
-    console.log('applicantAuthReducer : action : ', action);
-    console.log('applicantAuthReducer : state : ', state);
     return {
       ...state,
       applicant: action.jobSeeker,
@@ -15,6 +13,6 @@ const _authReducer = createReducer(
   })
 );
 
-export function applicantAuthReducer(state: any, action: any) {
+export function applicantAuthReducer(state: ApplicantAuthState | undefined, action: Action) {
   return _authReducer(state, action);
 }

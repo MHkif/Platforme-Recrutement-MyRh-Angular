@@ -13,12 +13,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {}
   ngOnInit(): void {
-    this.store.select('applicantAuth').subscribe(
-      (state) => (
-        (this.applicant = state.applicant),
-        // console.log('State :', state),
-        console.log('Applicant :', this.applicant)
-      )
-    );
+    this.store
+      .select('applicantAuth')
+      .subscribe((state) => (this.applicant = state.applicant));
   }
 }

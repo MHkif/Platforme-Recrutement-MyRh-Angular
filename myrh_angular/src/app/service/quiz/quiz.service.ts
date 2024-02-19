@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Question } from '../../model/question.model';
 import { Observable } from 'rxjs';
 import { ResponseHttp } from '../../model/responseData.model';
@@ -14,6 +14,13 @@ export class QuizService {
   constructor(private http: HttpClient) {}
 
   public getQuizByProfile(profileId: number): Observable<ResponseHttp> {
-    return this.http.get<ResponseHttp>(this.base_url + profileId);
+    
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + 'token');
+    return this.http.get<ResponseHttp>(
+      this.base_url + parseInt(profileId.toString()),
+      {
+        headers,
+      }
+    );
   }
 }
