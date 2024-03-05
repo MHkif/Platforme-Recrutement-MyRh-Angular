@@ -6,6 +6,8 @@ export const APPLICANT_LOGIN_SUCCESS =
   '[auth/applicant] APPLICANT login success';
 export const APPLICANT_LOGIN_FAIL = '[auth/applicant] APPLICANT login fail';
 
+export const APPLICANT_LOGOUT = '[auth/applicant] APPLICANT logout start';
+
 export const APPLICANT_SIGNUP_START =
   '[auth/applicant] APPLICANT sign up start';
 export const APPLICANT_SIGNUP_SUCCESS =
@@ -18,6 +20,7 @@ export const applicantStartLogin = createAction(
   props<{ email: string; password: string }>()
 );
 
+export const applicantLogout = createAction(APPLICANT_LOGOUT);
 export const applicantLoginSuccess = createAction(
   APPLICANT_LOGIN_SUCCESS,
   props<{ jobSeeker: JobSeeker; isLogged: boolean }>()

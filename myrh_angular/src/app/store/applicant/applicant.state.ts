@@ -1,11 +1,11 @@
 import { JobSeeker } from '../../model/jobSeeker.model';
 
 export interface ApplicantAuthState {
-  applicant: JobSeeker | null;
+  applicant: JobSeeker;
   isLogged: boolean;
 }
 
 export const initialState: ApplicantAuthState = {
-  applicant: null,
+  applicant: Object(),
   isLogged: false,
 };
